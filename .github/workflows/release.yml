@@ -89,6 +89,7 @@ jobs:
           version: '~> v2'
           args: release --clean -f .goreleaser.2.yml --fail-fast
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GGOOS: ${{ matrix.GOOS }}
 
   release:
