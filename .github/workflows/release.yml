@@ -16,7 +16,6 @@ on:
   workflow_call:
 
 permissions:
-  packages: write
   contents: write
 
 # concurrency:
@@ -84,9 +83,10 @@ jobs:
           key: ${{ matrix.GOOS }}-${{ needs.meta.outputs.sha_short }}
       - name: Run GoReleaser
         if: steps.cache.outputs.cache-hit != 'true' # do not run if cache hit
-        uses: goreleaser/goreleaser-action@v5
+        uses: goreleaser/goreleaser-action@v6
         with:
-          version: latest
+          distribution: goreleaser
+          version: '~> v2'
           args: release --clean -f .goreleaser.2.yml --fail-fast
         env:
           GGOOS: ${{ matrix.GOOS }}
