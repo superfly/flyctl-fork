@@ -67,7 +67,7 @@ jobs:
     strategy:
       matrix:
         GOOS: [linux, windows, darwin]
-    runs-on: self-hosted-m
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
         with:
