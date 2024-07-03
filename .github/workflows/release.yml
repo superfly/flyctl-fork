@@ -87,7 +87,7 @@ jobs:
         uses: goreleaser/goreleaser-action@v5
         with:
           version: latest
-          args: release --clean -f .goreleaser.2.yml --fail-fast --split
+          args: release --clean -f .goreleaser.2.yml --fail-fast
         env:
           GGOOS: ${{ matrix.GOOS }}
 
