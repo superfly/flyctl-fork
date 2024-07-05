@@ -4,6 +4,8 @@
 env:
   - BUILD_ENV={{if index .Env "BUILD_ENV"}}{{.Env.BUILD_ENV}}{{else}}production{{end}}
 
+
+
 before:
   hooks:
     - go mod download
