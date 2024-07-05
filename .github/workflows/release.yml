@@ -87,7 +87,7 @@ jobs:
         with:
           distribution: goreleaser
           version: latest
-          args: release --clean -f .goreleaser.2.yml --fail-fast
+          args: release --clean -f .goreleaser.2.yml --fail-fast --split
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GGOOS: ${{ matrix.GOOS }}
