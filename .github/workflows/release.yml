@@ -85,9 +85,9 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true' # do not run if cache hit
         uses: goreleaser/goreleaser-action@v5
         with:
-          distribution: goreleaser-pro
+          distribution: gorelease
           version: latest
-          args: release --clean -f .goreleaser.2.yml --fail-fast --split
+          args: release --clean -f .goreleaser.2.yml --fail-fast
         env:
           GORELEASER_KEY: ${{ secrets.GORELEASER_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
