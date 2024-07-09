@@ -24,14 +24,14 @@ permissions:
 
 jobs:
   debug:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - run: echo "$GITHUB_CONTEXT"
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
 
   meta:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     outputs:
       sha_short: ${{ steps.gen.outputs.sha_short }}
       json: ${{ steps.gen.outputs.json }}
@@ -66,7 +66,7 @@ jobs:
     strategy:
       matrix:
         GOOS: [linux]
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
         with:
@@ -94,7 +94,7 @@ jobs:
           GGOOS: ${{ matrix.GOOS }}
 
   release:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [meta, build]
     steps:
       - uses: actions/checkout@v4

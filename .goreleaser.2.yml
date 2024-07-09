@@ -4,8 +4,6 @@
 env:
   - BUILD_ENV={{if index .Env "BUILD_ENV"}}{{.Env.BUILD_ENV}}{{else}}production{{end}}
 
-
-
 before:
   hooks:
     - go mod download
@@ -19,7 +17,7 @@ builds:
       - linux
     goarch:
       - arm64
-      - x86_64
+      - amd64
     ldflags:
       - -X github.com/superfly/flyctl/internal/buildinfo.buildDate={{.CommitDate}}
       - -X github.com/superfly/flyctl/internal/buildinfo.buildVersion={{.Version}}
@@ -34,7 +32,7 @@ builds:
       - darwin
     goarch:
       - arm64
-      - x86_64
+      - amd64
     ldflags:
       - -X github.com/superfly/flyctl/internal/buildinfo.buildDate={{.CommitDate}}
       - -X github.com/superfly/flyctl/internal/buildinfo.buildVersion={{.Version}}
@@ -49,7 +47,7 @@ builds:
       - windows
     goarch:
       - arm64
-      - x86_64
+      - amd64
     ldflags:
       - -X github.com/superfly/flyctl/internal/buildinfo.buildDate={{.CommitDate}}
       - -X github.com/superfly/flyctl/internal/buildinfo.buildVersion={{.Version}}
@@ -60,7 +58,12 @@ builds:
 archives:
   - id: linux
     name_template: >-
-      {{ .ProjectName }}_{{ .Version }}_Linux_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}
+      {{ .ProjectName }}_{{ .Version}}_
+      {{- if eq .Os "darwin" }}macOS
+      {{- else if eq .Os "linux" }}Linux
+      {{- else }}{{ .Os }}{{- end }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else }}{{ .Arch }}{{- end }}
     builds: [linux]
     files: [only-the-binary*]
     wrap_in_directory: false
@@ -68,7 +71,12 @@ archives:
 
   - id: macos
     name_template: >-
-      {{ .ProjectName }}_{{ .Version }}_macOS_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}
+      {{ .ProjectName }}_{{ .Version}}_
+      {{- if eq .Os "darwin" }}macOS
+      {{- else if eq .Os "linux" }}Linux
+      {{- else }}{{ .Os }}{{- end }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else }}{{ .Arch }}{{- end }}
     builds: [macos]
     files: [only-the-binary*]
     wrap_in_directory: false
@@ -76,7 +84,11 @@ archives:
 
   - id: windows
     name_template: >-
-      {{ .ProjectName }}_{{ .Version }}_Windows_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}
+      {{ .ProjectName }}_{{ .Version}}_
+      {{- if eq .Os "windows" }}Windows
+      {{- else }}{{ .Os }}{{- end }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else }}{{ .Arch }}{{- end }}
     builds: [windows]
     files: [wintun.dll]
     wrap_in_directory: false
