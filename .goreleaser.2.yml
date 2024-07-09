@@ -19,7 +19,7 @@ builds:
       - linux
     goarch:
       - arm64
-      - amd64
+      - x86_64
     ldflags:
       - -X github.com/superfly/flyctl/internal/buildinfo.buildDate={{.CommitDate}}
       - -X github.com/superfly/flyctl/internal/buildinfo.buildVersion={{.Version}}
@@ -34,7 +34,7 @@ builds:
       - darwin
     goarch:
       - arm64
-      - amd64
+      - x86_64
     ldflags:
       - -X github.com/superfly/flyctl/internal/buildinfo.buildDate={{.CommitDate}}
       - -X github.com/superfly/flyctl/internal/buildinfo.buildVersion={{.Version}}
@@ -49,7 +49,7 @@ builds:
       - windows
     goarch:
       - arm64
-      - amd64
+      - x86_64
     ldflags:
       - -X github.com/superfly/flyctl/internal/buildinfo.buildDate={{.CommitDate}}
       - -X github.com/superfly/flyctl/internal/buildinfo.buildVersion={{.Version}}
