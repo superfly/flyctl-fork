@@ -85,9 +85,9 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true' # do not run if cache hit
         uses: goreleaser/goreleaser-action@v5
         with:
-          distribution: gorelease
+          distribution: goreleaser-pro
           version: latest
-          args: release --clean -f .goreleaser.2.yml --fail-fast
+          args: release --clean -f .goreleaser.2.yml --fail-fast --split
         env:
           GORELEASER_KEY: ${{ secrets.GORELEASER_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -121,9 +121,8 @@ jobs:
             dist/**/*.tar.gz
           retention-days: 1
           overwrite: true
-
       - name: Github release
-        if: steps.cache.outputs.cache-hit != 'true' # do not run if cache hit
+        if: steps.cache.outputs.cache-hit != 'true' && github.ref == 'refs/heads/master'
         uses: goreleaser/goreleaser-action@v5
         with:
           distribution: goreleaser-pro
